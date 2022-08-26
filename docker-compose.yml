@@ -4,7 +4,6 @@ networks:
   my_network:
     driver: bridge
   
-
 services:
   mongo:
     image: mongo:latest

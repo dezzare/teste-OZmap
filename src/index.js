@@ -5,6 +5,8 @@ import Koa from 'koa';
 import root from './routes/root.js';
 import user from './routes/userRoute.js';
 import { PORT } from './config/index.js'
+import cors from '@koa/cors';
+import bodyParser from 'koa-bodyparser';
 
 
 //mais infos
@@ -17,6 +19,8 @@ await dbConnection();
 
 
 koa
+  .use(cors())
+  .use(bodyParser())
   .use(root.routes())
   .use(root.allowedMethods())
   .use(user.routes())
