@@ -1,5 +1,6 @@
-import router from './routes/root.js'
-import Koa from 'koa'
+import Koa from 'koa';
+import root from './routes/root.js';
+import user from './routes/userRoute.js';
 //Voce deve rodar os testes usando:  npm test
 //Para testar a aplicação, rode: npm run dev
 
@@ -12,8 +13,12 @@ const PORT = process.env.PORT || 3000;
 const koa = new Koa();
 
 koa
-  .use(router.routes())
-  .use(router.allowedMethods());
+  .use(root.routes())
+  .use(root.allowedMethods())
+  .use(user.routes())
+  .use(user.allowedMethods());
+
+
 
 const server = koa.listen(PORT);
 
