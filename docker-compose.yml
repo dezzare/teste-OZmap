@@ -30,7 +30,7 @@ services:
       - .:/home/app
     environment:
       - PORT=3000
-      - MONGO_URI=mongodb://user:password@mongo:27017/
+      - DB_URI = mongodb://user:password@mongo:27017/users
     depends_on:
       - mongo
     networks:

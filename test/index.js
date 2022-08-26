@@ -21,6 +21,8 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import chaiJson from 'chai-json-schema';
 
+process.env.NODE_ENV = 'test';
+
 const app = server;
 
 chai.use(chaiHttp);
