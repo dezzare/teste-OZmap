@@ -1,9 +1,11 @@
+//Voce deve rodar os testes usando:  npm test
+//Para testar a aplicação, rode: npm run dev
+import dbConnection from './services/database.js'
 import Koa from 'koa';
 import root from './routes/root.js';
 import user from './routes/userRoute.js';
 import { PORT } from './config/index.js'
-//Voce deve rodar os testes usando:  npm test
-//Para testar a aplicação, rode: npm run dev
+
 
 //mais infos
 //https://github.com/ZijianHe/koa-router
@@ -11,6 +13,8 @@ import { PORT } from './config/index.js'
 // todas as configuraçoes devem ser passadas via environment variables
 
 const koa = new Koa();
+await dbConnection();
+
 
 koa
   .use(root.routes())
