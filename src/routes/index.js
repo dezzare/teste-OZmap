@@ -1,2 +1,2 @@
-export * from './root'
-export * from './userRoute'
+export * from './root.js'
+export * from './userRoute.js'

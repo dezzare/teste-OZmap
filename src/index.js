@@ -1,3 +1,5 @@
+import router from './routes/root.js'
+import Koa from 'koa'
 //Voce deve rodar os testes usando:  npm test
 //Para testar a aplicação, rode: npm run dev
 
@@ -7,8 +9,6 @@
 // todas as configuraçoes devem ser passadas via environment variables
 const PORT = process.env.PORT || 3000;
 
-const Koa = require('koa');
-
 const koa = new Koa();
 
 koa
@@ -17,4 +17,5 @@ koa
 
 const server = koa.listen(PORT);
 
-module.exports = server;
+
+export default server;
