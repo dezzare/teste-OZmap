@@ -10,20 +10,26 @@ export const createUser = async (ctx) => {
       idade: idade,
     });
     ctx.status = 201;
-    console.log("DEU CERTO")
-    console.log("DEU CERTO")
-    console.log("DEU CERTO")
-    console.log("DEU CERTO")
-    console.log("DEU CERTO")
   } catch (err) {
     console.log(err)
-    console.log(err)
-    console.log(err)
-    console.log(err)
-    console.log(err)
-    console.log(err)
-
   }
+}
 
-
+export const getUser = async (ctx) => {
+  try {
+    const isUser = await User.findOne({ nome: ctx.params.nome })
+    if (!isUser) {
+      console.log(err);
+      ctx.throw(404, 'User not found');
+    }
+    ctx.status = 200;
+    const user = {
+      nome: isUser.nome,
+      email: isUser.email,
+      idade: isUser.idade
+    }
+    ctx.body = user;
+  } catch (err) {
+    console.log(err)
+  }
 }
