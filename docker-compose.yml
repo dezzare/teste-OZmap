@@ -25,11 +25,13 @@ services:
     build: .
     ports:
       - 3000:3000
+      - 5000:5000
     volumes:
       - .:/home/app
     environment:
-      - PORT=3000
-      - DB_URI = mongodb://user:password@mongo:27017/users
+      - PORT=5000
+      - DB_URI=mongodb://user:password@mongo:27017/users
+      - NODE_ENV=dev
     depends_on:
       - mongo
     networks:

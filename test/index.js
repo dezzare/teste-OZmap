@@ -137,6 +137,20 @@ describe('Testes da aplicaçao', () => {
       });
   });
 
+
+  {
+    const createUsers = async (i) => {
+      await chai
+        .request(app)
+        .post('/user')
+        .send({ nome: `User${i}`, email: `user${i}@email.com`, idade: 20 + i })
+    }
+    for (let i = 0; i < 5; i++) {
+      createUsers(i);
+    }
+  }
+
+
   it('deveria ser uma lista com pelomenos 5 usuarios', function(done) {
     chai.request(app)
       .get('/users')
@@ -148,3 +162,4 @@ describe('Testes da aplicaçao', () => {
       });
   });
 })
+

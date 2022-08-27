@@ -11,7 +11,8 @@ export const createUser = async (ctx) => {
     });
     ctx.status = 201;
   } catch (err) {
-    console.log(err)
+    ctx.status = err.statusCode || err.status || 404;
+    ctx.body = { message: err.message };
   }
 }
 
@@ -34,8 +35,34 @@ export const getUser = async (ctx) => {
     }
   } catch (err) {
     ctx.status = err.statusCode || err.status || 404;
+    ctx.body = { message: err.message };
+
+  }
+}
+
+export const getAllUsers = async (ctx) => {
+  try {
+    const isUsers = await User.find({});
+    ctx.status = 200;
+    ctx.body = { isUsers, total: isUsers.length, rows: [] };
+  } catch (err) {
+    ctx.status = err.statusCode || err.status || 404;
+    ctx.body = { message: err.message };
+  }
+}
+
+export const deleteUser = async (ctx) => {
+  try {
+    const user = await User.findOne({ nome: ctx.params.nome });
+
+    User.remove({ nome: ctx.params.nome })
+    ctx.status = 200;
     ctx.body = {
-      message: err.message
+      nome: user.nome,
+      email: user.email,
+      idade: user.idade
     }
+  } catch (err) {
+    console.lor(err);
   }
 }
