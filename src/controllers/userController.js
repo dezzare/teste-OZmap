@@ -18,6 +18,7 @@ export const createUser = async (ctx) => {
 
 export const getUser = async (ctx) => {
   try {
+
     const isUser = await User.findOne({ nome: ctx.params.nome })
     if (isUser == null) {
       ctx.status = 404;
@@ -66,3 +67,23 @@ export const deleteUser = async (ctx) => {
     console.lor(err);
   }
 }
+
+export const updateUser = async (ctx) => {
+
+  const user = await User.findOne({ nome: ctx.params.nome })
+  if (!user) {
+    ctx.status = 404;
+    ctx.body = { message: 'User not found' };
+  }
+
+  const { nome, email, idade } = ctx.request.body;
+  if (nome != null) user.nome = nome;
+  if (email != null) user.email = email;
+  if (idade != null) user.idade = idade;
+
+  await user.save();
+  ctx.status = 200;
+  ctx.body = user;
+}
+
+

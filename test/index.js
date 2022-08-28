@@ -161,5 +161,18 @@ describe('Testes da aplicaçao', () => {
         done();
       });
   });
+
+  it('deveria atualizar o User1', function(done) {
+    chai.request(app)
+      .put('/user/User1')
+      .send({ nome: `Teste1`, email: `teste1@email.com`, idade: 40 })
+      .end(function(err, res) {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.jsonSchema(userSchema);
+        done();
+      });
+  });
+
 })
 

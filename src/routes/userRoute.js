@@ -1,6 +1,6 @@
 import Router from 'koa-router'
 // import bodyParser from 'koa-bodyparser'
-import { createUser, deleteUser, getAllUsers, getUser } from '../controllers/userController.js';
+import { createUser, deleteUser, getAllUsers, getUser, updateUser } from '../controllers/userController.js';
 
 
 
@@ -18,6 +18,7 @@ user.get('/users', getAllUsers);
 user.get('/user/:nome', getUser);
 user.post('/user', createUser);
 user.delete('/user/:nome', deleteUser);
+user.put('/user/:nome', updateUser);
 
 
 
