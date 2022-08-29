@@ -3,16 +3,21 @@ import User from '../models/User.js';
 export const createUser = async (ctx) => {
   const { nome, email, idade } = ctx.request.body;
 
-  try {
-    await User.create({
-      nome: nome,
-      email: email,
-      idade: idade,
-    });
-    ctx.status = 201;
-  } catch (err) {
-    ctx.status = err.statusCode || err.status || 404;
-    ctx.body = { message: err.message };
+  if (idade < 18) {
+    ctx.body = { message: 'Usuário precisa ter no mínimo 18 anos' };
+    ctx.status = 400;
+  } else {
+    try {
+      await User.create({
+        nome: nome,
+        email: email,
+        idade: idade,
+      });
+      ctx.status = 201;
+    } catch (err) {
+      ctx.status = err.statusCode || err.status || 404;
+      ctx.body = { message: err.message };
+    }
   }
 }
 
@@ -77,13 +82,19 @@ export const updateUser = async (ctx) => {
   }
 
   const { nome, email, idade } = ctx.request.body;
-  if (nome != null) user.nome = nome;
-  if (email != null) user.email = email;
-  if (idade != null) user.idade = idade;
+  if (idade < 18) {
+    ctx.body = { message: 'Usuário precisa ter no mínimo 18 anos' };
+    ctx.status = 400;
+  } else {
 
-  await user.save();
-  ctx.status = 200;
-  ctx.body = user;
+    if (nome != null) user.nome = nome;
+    if (email != null) user.email = email;
+    if (idade != null) user.idade = idade;
+
+    await user.save();
+    ctx.status = 200;
+    ctx.body = user;
+  }
 }
 
 

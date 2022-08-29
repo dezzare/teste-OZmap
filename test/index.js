@@ -97,6 +97,7 @@ describe('Testes da aplicaçao', () => {
     chai.request(app)
       .get('/user/naoExiste')
       .end(function(err, res) {
+        expect(err).to.be.null;
         expect(res.body.message).to.be.equal('User not found');
         expect(res).to.have.status(404);
         expect(res.body).to.be.jsonSchema({});
@@ -174,5 +175,28 @@ describe('Testes da aplicaçao', () => {
       });
   });
 
-})
+  it("deveria negar o registro do usuario menor de 18", function(done) {
+    chai
+      .request(app)
+      .post("/user")
+      .send({ nome: "Menor", email: "menor@email.com", idade: 15 })
+      .end(function(err, res) {
+        expect(err).to.be.null;
+        expect(res.body.message).to.be.equal('Usuário precisa ter no mínimo 18 anos');
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
 
+  it('deveria negar atualizar a idade do User2', function(done) {
+    chai.request(app)
+      .put('/user/User2')
+      .send({ nome: `Teste2`, email: `teste2@email.com`, idade: 17 })
+      .end(function(err, res) {
+        expect(err).to.be.null;
+        expect(res.body.message).to.be.equal('Usuário precisa ter no mínimo 18 anos');
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
+});
